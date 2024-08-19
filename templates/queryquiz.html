@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Querying Experiment Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+        #quiz {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #quiz div {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 9999;
+        }
+        #popup-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #007bff; /* Popup box background color */
+            padding: 60px; /* Increased padding for larger popup */
+            border-radius: 20px; /* Adjust border radius */
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+        }
+        #close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+        }
+        canvas#confetti-canvas {
+            display: block;
+            z-index: 9999;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h1>Querying Experiment Quiz</h1>
+
+    <div id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Quiz</button>
+
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <span id="close-popup" onclick="closePopup()">X</span>
+            <div id="quiz-result"></div>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        const questions = [
+            {
+                question: "Which SQL query retrieves all columns from the 'customers' table?",
+                options: ["SELECT * FROM customers;", "SELECT ALL customers;", "SELECT columns FROM customers;", "SELECT data FROM customers;"],
+                answer: "SELECT * FROM customers;"
+            },
+            {
+                question: "What does the WHERE clause do in SQL?",
+                options: ["Filters rows based on a condition", "Orders the result set", "Joins multiple tables", "Deletes rows from a table"],
+                answer: "Filters rows based on a condition"
+            },
+            {
+                question: "What does the ORDER BY clause do in SQL?",
+                options: ["Filters rows based on a condition", "Orders the result set", "Joins multiple tables", "Deletes rows from a table"],
+                answer: "Orders the result set"
+            },
+            {
+                question: "What does the GROUP BY clause do in SQL?",
+                options: ["Filters rows based on a condition", "Orders the result set", "Groups rows with the same value into summary rows", "Deletes rows from a table"],
+                answer: "Groups rows with the same value into summary rows"
+            },
+            {
+                question: "What does the HAVING clause do in SQL?",
+                options: ["Filters rows based on a condition", "Orders the result set", "Groups rows with the same value into summary rows", "Deletes rows from a table"],
+                answer: "Filters rows based on a condition"
+            },
+            {
+                question: "Which SQL keyword is used to combine the results of two or more SELECT statements?",
+                options: ["JOIN", "UNION", "GROUP BY", "ORDER BY"],
+                answer: "UNION"
+            },
+            {
+                question: "Which SQL clause is used to specify a condition while retrieving data from a table?",
+                options: ["WHERE", "GROUP BY", "HAVING", "ORDER BY"],
+                answer: "WHERE"
+            },
+            {
+                question: "Which SQL clause is used to sort the result set in ascending or descending order?",
+                options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"],
+                answer: "ORDER BY"
+            },
+            {
+                question: "Which SQL clause is used to group the result set by one or more columns?",
+                options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"],
+                answer: "GROUP BY"
+            },
+            {
+                question: "Which SQL clause is used to filter the results of a GROUP BY clause based on a specified condition?",
+                options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"],
+                answer: "HAVING"
+            }
+        ];
+        const quizContainer = document.getElementById("quiz");
+
+        function loadQuiz() {
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${question.question}</h3>`;
+                question.options.forEach((option, optionIndex) => {
+                    questionDiv.innerHTML += `<label><input type="radio" name="question${index}" value="${optionIndex}"> ${option}</label>`;
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value == questions[index].options.indexOf(questions[index].answer)) {
+                        score++;
+                    }
+                }
+            });
+            const totalQuestions = questions.length;
+            const scorePercentage = (score / totalQuestions) * 100;
+            const resultText = `Your score: ${score}/${totalQuestions} (${scorePercentage.toFixed(2)}%)`;
+
+            // Display the score on the page
+            const quizResultDiv = document.getElementById("quiz-result");
+            quizResultDiv.textContent = resultText;
+
+            // Show the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "block";
+
+            // Start confetti animation
+            confetti.start();
+        }
+
+        function closePopup() {
+            // Hide the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "none";
+
+            // Stop confetti animation
+            confetti.stop();
+        }
+
+        loadQuiz();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

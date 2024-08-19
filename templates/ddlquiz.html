@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDL COMMANDS Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+        #quiz {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #quiz div {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 9999;
+        }
+        #popup-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #007bff; /* Popup box background color */
+            padding: 60px; /* Increased padding for larger popup */
+            border-radius: 20px; /* Adjust border radius */
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+        }
+        #close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+        }
+        canvas#confetti-canvas {
+            display: block;
+            z-index: 9999;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h1>DDL COMMAND Quiz</h1>
+
+    <div id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Quiz</button>
+
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <span id="close-popup" onclick="closePopup()">X</span>
+            <div id="quiz-result"></div>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        const questions = [
+            {
+                question: "What does the CREATE command do in SQL?",
+                options: ["Creates a new database", "Creates a new table", "Creates a new row", "Creates a new column"],
+                answer: "Creates a new table"
+            },
+            {
+                question: "What does the ALTER command do in SQL?",
+                options: ["Deletes a table", "Modifies the structure of a table", "Adds a new row to a table", "Adds a new column to a table"],
+                answer: "Modifies the structure of a table"
+            },
+            {
+                question: "What does the DROP command do in SQL?",
+                options: ["Deletes a database", "Deletes a table", "Deletes a row", "Deletes a column"],
+                answer: "Deletes a table"
+            },
+            {
+                question: "What does the TRUNCATE command do in SQL?",
+                options: ["Deletes all rows from a table", "Deletes a specific row from a table", "Deletes a specific column from a table", "Deletes all columns from a table"],
+                answer: "Deletes all rows from a table"
+            },
+            {
+                question: "What does the CREATE DATABASE command do in SQL?",
+                options: ["Creates a new table", "Creates a new row", "Creates a new column", "Creates a new database"],
+                answer: "Creates a new database"
+            },
+            {
+                question: "What does the DROP DATABASE command do in SQL?",
+                options: ["Deletes a table", "Deletes a row", "Deletes a column", "Deletes a database"],
+                answer: "Deletes a database"
+            },
+            {
+                question: "What does the CREATE INDEX command do in SQL?",
+                options: ["Creates a new index", "Deletes an index", "Modifies an index", "Creates a new table"],
+                answer: "Creates a new index"
+            },
+            {
+                question: "What does the DROP INDEX command do in SQL?",
+                options: ["Deletes a table", "Deletes an index", "Deletes a row", "Deletes a column"],
+                answer: "Deletes an index"
+            },
+            {
+                question: "What does the CREATE VIEW command do in SQL?",
+                options: ["Creates a new view", "Deletes a view", "Modifies a view", "Creates a new table"],
+                answer: "Creates a new view"
+            },
+            {
+                question: "What does the DROP VIEW command do in SQL?",
+                options: ["Deletes a table", "Deletes a view", "Deletes a row", "Deletes a column"],
+                answer: "Deletes a view"
+            }
+        ];
+        const quizContainer = document.getElementById("quiz");
+
+        function loadQuiz() {
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${question.question}</h3>`;
+                question.options.forEach((option, optionIndex) => {
+                    questionDiv.innerHTML += `<label><input type="radio" name="question${index}" value="${optionIndex}"> ${option}</label>`;
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value == questions[index].options.indexOf(questions[index].answer)) {
+                        score++;
+                    }
+                }
+            });
+            const totalQuestions = questions.length;
+            const scorePercentage = (score / totalQuestions) * 100;
+            const resultText = `Your score: ${score}/${totalQuestions} (${scorePercentage.toFixed(2)}%)`;
+
+            // Display the score on the page
+            const quizResultDiv = document.getElementById("quiz-result");
+            quizResultDiv.textContent = resultText;
+
+            // Show the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "block";
+
+            // Start confetti animation
+            confetti.start();
+        }
+
+        function closePopup() {
+            // Hide the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "none";
+
+            // Stop confetti animation
+            confetti.stop();
+        }
+
+        loadQuiz();
+    </script>
+    <script src="script.js"></script> <!-- Link to confetti JavaScript file -->
+</body>
+</html>

@@ -1,0 +1,191 @@
+body.main-body {
+    background-color: #f0f0f0; /* Light gray background color */
+    padding: 20px; /* Add padding to all sides */
+    font-size: 16px; /* Standard base font size */
+}
+
+/* Header styling */
+header {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+}
+
+/* Guru Nanak Logo */
+.logo {
+    width: 50px; /* Adjust logo width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px;
+}
+
+/* Heading styling */
+.header-title {
+    font-size: 24px; /* Adjust font size */
+    margin: 0;
+}
+
+/* Navigation Menu styling */
+nav {
+    text-align: left; /* Align menu to the left */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px; /* Adjust font size */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+nav ul li a:hover {
+    color: #666;
+}
+
+/* Main content styling */
+.content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* Highlighted section heading */
+.section-heading {
+    color: #007bff; /* Blue color for heading */
+    font-size: 20px; /* Adjust font size */
+}
+
+/* Increase font size for welcome text */
+.welcome-text {
+    font-size: 18px; /* Adjust font size */
+}
+
+/* Icon styling */
+.section-icon {
+    width: 30px; /* Adjust icon size */
+    height: 30px; /* Adjust icon size */
+    margin-right: 10px;
+}
+
+/* Active section link */
+.active {
+    font-weight: bold;
+    color: #007bff; /* Blue color for active link */
+}
+
+
+
+
+body.main-body {
+    background-color: #f0f0f0; /* Light gray background color */
+    padding: 20px; /* Add padding to all sides */
+    font-size: 16px; /* Standard base font size */
+}
+
+/* Header styling */
+header {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+}
+
+/* Guru Nanak Logo */
+.logo {
+    width: 100px; /* Adjust logo width */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px;
+}
+
+/* Heading styling */
+.header-title {
+    font-size: 24px; /* Adjust font size */
+    margin: 0;
+}
+
+/* Navigation Menu styling */
+nav {
+    text-align: left; /* Align menu to the left */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px; /* Adjust font size */
+    transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+nav ul li a:hover {
+    color: #666;
+}
+
+/* Adjust icon sizes in navigation menu */
+.section-icon {
+    width: 24px; /* Adjust icon width */
+    height: 24px; /* Adjust icon height */
+    margin-right: 10px;
+}
+
+/* Main content styling */
+.content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* Highlighted section heading */
+.section-heading {
+    color: #007bff; /* Blue color for heading */
+    font-size: 20px; /* Adjust font size */
+}
+
+/* Increase font size for welcome text */
+.welcome-text {
+    font-size: 18px; /* Adjust font size */
+}
+
+/* Active section link */
+.active {
+    font-weight: bold;
+    color: #007bff; /* Blue color for active link */
+}
+
+.vertical-list {
+    list-style-type: none; /* Removes bullet points */
+    padding: 0;
+    margin: 0;
+}
+
+.vertical-list li {
+    margin-bottom: 10px; /* Adds space between each list item */
+}
+
+.section-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.section-icon {
+    margin-right: 10px; /* Adds space between the icon and the text */
+}
+

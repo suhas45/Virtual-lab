@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Virtual Lab - Experiments</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body class="main-body">
+
+<header>
+    <!-- Guru Nanak Logo -->
+    <img src="https://static.toiimg.com/thumb/msid-64358656,imgsize-52119,width-400,resizemode-4/64358656.jpg" alt="Guru Nanak Logo" class="logo">
+    <!-- Heading -->
+    <h1 class="header-title">Data Base Management System Virtual Lab!</h1>
+</header>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'introduction' %}">
+                    <img src="https://static.vecteezy.com/system/resources/previews/014/640/986/original/introduction-line-icon-vector.jpg" width="30" height="30" alt="Introduction Icon" class="section-icon"> 
+                    Introduction
+                </a>
+            </li>  
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'objectives' %}">
+                    <img src="https://thumbs.dreamstime.com/b/target-challenge-objective-icon-competitive-advantage-symbol-successful-shot-darts-isolated-white-background-vector-131034872.jpg" width="30" height="30" alt="Objectives Icon" class="section-icon">
+                    Objectives
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'experiments' %}">
+                    <img src="https://static.thenounproject.com/png/1630956-200.png" width="30" height="30" alt="Experiments Icon" class="section-icon">
+                    Experiments
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'feedback' %}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4658/4658943.png" width="30" height="30" alt="Feedback Icon" class="section-icon">
+                    Feedback
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<section id="experiments">
+    <h2>List of Experiments</h2>
+    <ul>
+        <li><b><a href="{% url 'erdiagram' %}"><h3>1. ER Diagrams</h3></a></b></li>
+        <li><b><a href="{% url 'dml' %}"><h3>2. DML Commands</h3></a></b></li>
+        <li><b><a href="{% url 'ddl' %}"><h3>3. DDL Commands</h3></a></b></li>
+        <li><b><a href="{% url 'query' %}"><h3>4. Querying</h3></a></b></li>
+        <li><b><a href="{% url 'agg' %}"><h3>5. Aggregate Functions</h3></a></b></li>
+    </ul>
+</section>
+
+
+    <h2 id="experiment1">Experiment 1: ER Diagrams</h2>
+    <p>
+        This experiment covers the basics of creating Entity-Relationship (ER) diagrams to represent the structure of a database.
+    </p>
+
+    <h2 id="experiment2">Experiment 2: DML Commands</h2>
+    <p>
+        This experiment focuses on Data Manipulation Language (DML) commands such as INSERT, UPDATE, and DELETE to interact with the data in a database.
+    </p>
+
+    <h2 id="experiment3">Experiment 3: DDL Commands</h2>
+    <p>
+        This experiment explores Data Definition Language (DDL) commands like CREATE, ALTER, and DROP to define and manage the structure of a database.
+    </p>
+
+    <h2 id="experiment4">Experiment 4: Querying</h2>
+    <p>
+        This experiment introduces querying techniques using SQL to retrieve, filter, and manipulate data stored in a database.
+    </p>
+
+    <h2 id="experiment5">Experiment 5: Aggregate Functions</h2>
+    <p>
+        This experiment covers the usage of aggregate functions in SQL to perform calculations on sets of data, such as SUM, AVG, MIN, and MAX.
+    </p>
+</section>
+
+</body>
+</html>

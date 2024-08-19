@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Virtual Lab - Feedback</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #feedback-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #feedback-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        #feedback-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #feedback-form input[type="text"],
+        #feedback-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .emojis {
+            margin-bottom: 20px;
+        }
+
+        .emojis label {
+            font-size: 30px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #submit-btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Guru Nanak Logo -->
+    <img src="https://static.toiimg.com/thumb/msid-64358656,imgsize-52119,width-400,resizemode-4/64358656.jpg" alt="Guru Nanak Logo" class="logo">
+    <!-- Heading -->
+    <h1>Data Base Management System Virtual Lab!</h1>
+</header>
+
+<section id="feedback-section">
+    <h2>Feedback</h2>
+    <div id="feedback-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name...">
+
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" name="feedback" rows="4" placeholder="Enter your feedback..."></textarea>
+
+        <div class="emojis">
+            <label for="happy" onclick="addEmoji('😊')">😊</label>
+            <label for="sad" onclick="addEmoji('😞')">😞</label>
+            <label for="neutral" onclick="addEmoji('😐')">😐</label>
+        </div>
+
+        <button id="submit-btn" onclick="submitFeedback()">Submit</button>
+    </div>
+</section>
+
+<script>
+    function submitFeedback() {
+        const name = document.getElementById("name").value.trim();
+        const feedback = document.getElementById("feedback").value.trim();
+
+        // Store feedback data in local storage or send it to a backend server
+
+        // Reset input fields after submission (optional)
+        document.getElementById("name").value = "";
+        document.getElementById("feedback").value = "";
+
+        alert("Thank you for your feedback!");
+    }
+
+    function addEmoji(emoji) {
+        const feedbackTextarea = document.getElementById("feedback");
+        feedbackTextarea.value += emoji;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Querying Experiment - DBMS Virtual Lab</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body class="main-body">
+
+<header>
+    <!-- Guru Nanak Logo -->
+    <img src="https://static.toiimg.com/thumb/msid-64358656,imgsize-52119,width-400,resizemode-4/64358656.jpg" alt="Guru Nanak Logo" class="logo">
+    <!-- Heading -->
+    <h1 class="header-title">Data Base Management System Virtual Lab!</h1>
+</header>
+
+<p>
+    <h1>Welcome to DBMS Virtual Lab.</h1>
+</p>
+
+<section id="querying-experiment">
+    <h2>Querying Experiment</h2>
+    
+    <h3>Display unique PNR_NO of all reservations</h3>
+    <p>
+        <strong>Using DISTINCT:</strong><br>
+        <p><strong>Definition:</strong> Retrieves unique values from a specified column in a table.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT DISTINCT PNR_NO FROM reservation;
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT DISTINCT PNR_NO FROM reservation;
+        </pre>
+        <p><strong>Output:</strong></p>
+        <pre>
+            PNR_NO
+            ------
+            1001
+            1002
+            1003
+            ...
+        </pre>
+        
+        <h4>UNION:</h4>
+        <p><strong>Definition:</strong> Combines the result sets of two or more SELECT statements into a single result set.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT PNR_NO FROM reservation
+            UNION
+            SELECT PNR_NO FROM boats;
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT PNR_NO FROM reservation
+                  UNION
+                  SELECT PNR_NO FROM boats;
+        </pre>
+        <p><strong>Output:</strong></p>
+        <pre>
+            PNR_NO
+            ------
+            1001
+            1002
+            1003
+            ...
+        </pre>
+        
+        <!-- Add definitions, syntax, examples, and outputs for INTERSECT, EXCEPT, IN, NOT IN, EXISTS, NOT EXISTS, ANY, ALL here -->
+        
+        <h4>INTERSECT:</h4>
+        <p><strong>Definition:</strong> Returns only the common rows returned by both SELECT statements.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT sid FROM sailors
+            INTERSECT
+            SELECT sid FROM reserves;
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT sid FROM sailors
+                  INTERSECT
+                  SELECT sid FROM reserves;
+        </pre>
+        <p><strong>Output:</strong></p>
+        <pre>
+            Sid 
+            ----
+            22
+            31
+            64
+            74
+        </pre>
+        
+        <h4>EXCEPT:</h4>
+        <p><strong>Definition:</strong> Returns only the unique rows returned by the first SELECT statement and not by the second SELECT statement.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT sid FROM sailors
+            EXCEPT
+            SELECT sid FROM reserves;
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT sid FROM sailors
+                  EXCEPT
+                  SELECT sid FROM reserves;
+        </pre>
+        <p><strong>Output:</strong></p>
+        <pre>
+            Sid 
+            ----
+            29
+            32
+            58
+            71
+            85
+            95
+        </pre>
+        
+        <h4>IN:</h4>
+        <p><strong>Definition:</strong> Returns values that match any value in a list.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT s.sname FROM sailors s WHERE s.sid IN (SELECT r.sid FROM reserves r WHERE r.bid = 103);
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT s.sname FROM sailors s WHERE s.sid IN (SELECT r.sid FROM reserves r WHERE r.bid = 103);
+        </pre>
+        
+        <h4>NOT IN:</h4>
+        <p><strong>Definition:</strong> Returns values that do not match any value in a list.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT s.sname FROM sailors s WHERE s.sid NOT IN (SELECT r.sid FROM reserves r WHERE r.bid = 103);
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT s.sname FROM sailors s WHERE s.sid NOT IN (SELECT r.sid FROM reserves r WHERE r.bid = 103);
+        </pre>
+        
+        <!-- Add definitions, syntax, examples, and outputs for EXISTS, NOT EXISTS, ANY, ALL here -->
+        
+        <h4>EXISTS:</h4>
+        <p><strong>Definition:</strong> Tests for the existence of any records in a subquery.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT column_name(s)
+            FROM table_name
+            WHERE EXISTS
+            (SELECT column_name FROM table_name WHERE condition);
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT s.sname FROM sailors s WHERE EXISTS (SELECT * FROM reserves r WHERE r.sid = s.sid);
+        </pre>
+        
+        <h4>NOT EXISTS:</h4>
+        <p><strong>Definition:</strong> Tests for the non-existence of any records in a subquery.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT column_name(s)
+            FROM table_name
+            WHERE NOT EXISTS
+            (SELECT column_name FROM table_name WHERE condition);
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT s.sname FROM sailors s WHERE NOT EXISTS (SELECT * FROM reserves r WHERE r.sid = s.sid);
+        </pre>
+        
+        <h4>ANY:</h4>
+        <p><strong>Definition:</strong> Compares a value to any applicable value in the list as per the condition.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT column_name(s)
+            FROM table_name
+            WHERE column_name operator ANY
+            (SELECT column_name FROM table_name WHERE condition);
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT s.sname FROM sailors s WHERE s.rating > ANY (SELECT s.rating FROM sailors s WHERE s.age < 30);
+        </pre>
+        
+        <h4>ALL:</h4>
+        <p><strong>Definition:</strong> Compares a value to all applicable values in the list as per the condition.</p>
+        <p><strong>Syntax:</strong></p>
+        <pre>
+            SELECT column_name(s)
+            FROM table_name
+            WHERE column_name operator ALL
+            (SELECT column_name FROM table_name WHERE condition);
+        </pre>
+        <p><strong>Example:</strong></p>
+        <pre>
+            MySQL> SELECT s.sname FROM sailors s WHERE s.rating > ALL (SELECT s.rating FROM sailors s WHERE s.age < 30);
+        </pre>
+    </p>
+</section>
+
+</body>
+</html>

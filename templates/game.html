@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DML and DDL Command Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #007bff;
+        }
+        #game-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="text"] {
+            width: calc(100% - 82px);
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-top: 30px;
+            margin-right: 20px;
+        }
+        p {
+            margin: 20px 0;
+            font-size: 24px;
+        }
+        .game-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .scoreboard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .scoreboard p {
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <h1>DML AND DDL Command Game</h1>
+        <div class="game-form">
+            <p>How many DML commands can you recall in 30 seconds?</p>
+            <button onclick="startGame()">Start Game</button>
+            <form id="command-form" class="hidden">
+                <input type="text" id="command-input" autofocus>
+                <button type="submit">Submit</button>
+            </form>
+            <p id="feedback"></p>
+            <div class="scoreboard hidden" id="scoreboard">
+                <p id="timer">Time left: 30 seconds</p>
+                <p id="score">Score: 0</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let score = 0;
+        let timeLeft = 30;
+        let timerInterval;
+
+        const dmlCommands = ["SELECT", "INSERT", "UPDATE", "DELETE"];
+
+        function startGame() {
+            document.getElementById("game-container").innerHTML = `
+                <h1>DML AND DDL Command Game</h1>
+                <div class="game-form">
+                    <p>Quickly type as many DML commands as you can!</p>
+                    <form id="command-form">
+                        <input type="text" id="command-input" autofocus>
+                        <button type="submit">Submit</button>
+                    </form>
+                    <p id="feedback"></p>
+                    <div class="scoreboard">
+                        <p id="timer">Time left: 30 seconds</p>
+                        <p id="score">Score: 0</p>
+                    </div>
+                </div>
+            `;
+            document.getElementById("command-input").focus();
+            score = 0;
+            timeLeft = 30;
+            updateTimerDisplay();
+            timerInterval = setInterval(updateTimer, 1000);
+            document.getElementById("command-form").addEventListener("submit", function(e) {
+                e.preventDefault();
+                checkCommand();
+            });
+        }
+
+        function checkCommand() {
+            const userInput = document.getElementById("command-input").value.toUpperCase();
+            if (dmlCommands.includes(userInput)) {
+                score++;
+                document.getElementById("score").textContent = `Score: ${score}`;
+                document.getElementById("feedback").textContent = "Correct!";
+            } else {
+                document.getElementById("feedback").textContent = "Incorrect!";
+            }
+            document.getElementById("command-input").value = "";
+        }
+
+        function updateTimer() {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft === 0) {
+                clearInterval(timerInterval);
+                endGame();
+            }
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById("timer").textContent = `Time left: ${timeLeft} seconds`;
+        }
+
+        function endGame() {
+            document.getElementById("game-container").innerHTML = `
+                <h1>DML AND DDL Command Game</h1>
+                <div class="game-form">
+                    <p>Game Over! You scored ${score} points.</p>
+                    <button onclick="startGame()">Play Again</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

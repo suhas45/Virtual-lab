@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online SQL Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Explore SQL Interactively!</h1>
+
+    <p>Welcome to the Online SQL Editor! Enhance your SQL skills by practicing in a real-time environment. Click the button below to access DB Fiddle, where you can experiment with SQL queries, create schemas, and analyze data effortlessly.</p>
+
+    <!-- Button to redirect to DB Fiddle -->
+    <button onclick="redirectToDBFiddle()">Go to DB Fiddle</button>
+
+    <script>
+        // Function to redirect to DB Fiddle website
+        function redirectToDBFiddle() {
+            window.location.href = "https://www.db-fiddle.com/";
+        }
+    </script>
+
+</body>
+</html>

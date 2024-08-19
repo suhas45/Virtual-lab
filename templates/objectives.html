@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Virtual Lab</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+<body class="main-body">
+
+<header>
+    <!-- Guru Nanak Logo -->
+    <img src="https://static.toiimg.com/thumb/msid-64358656,imgsize-52119,width-400,resizemode-4/64358656.jpg"width="250" height="150" alt="Guru Nanak Logo" class="logo">
+    <!-- Heading -->
+    <center>
+    <h1 class="header-title">Database Management System Virtual Lab!</h1>
+    </center>
+</header>
+<p>
+    <!-- Welcome message -->
+    <h1> Welcome to DBMS Virtual Lab.</h1>
+</p> 
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'introduction' %}">
+                    <img src="https://static.vecteezy.com/system/resources/previews/014/640/986/original/introduction-line-icon-vector.jpg" width="30" height="30" alt="Introduction Icon" class="section-icon"> 
+                    Introduction
+                </a>
+            </li>  
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'objectives' %}">
+                    <img src="https://thumbs.dreamstime.com/b/target-challenge-objective-icon-competitive-advantage-symbol-successful-shot-darts-isolated-white-background-vector-131034872.jpg" width="30" height="30" alt="Objectives Icon" class="section-icon">
+                    Objectives
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'experiments' %}">
+                    <img src="https://static.thenounproject.com/png/1630956-200.png" width="30" height="30" alt="Experiments Icon" class="section-icon">
+                    Experiments
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'feedback' %}">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4658/4658943.png" width="30" height="30" alt="Feedback Icon" class="section-icon">
+                    Feedback
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<p>
+    <!-- Objectives heading -->
+    <h2> OBJECTIVES</h2>
+</p>
+<!-- Objectives description -->
+<p>
+    The Database Management System (DBMS) Virtual Lab aims to provide an interactive environment for students to explore fundamental concepts and practices in managing databases. The lab objectives include:
+    <!-- Objectives list -->
+    <ol>
+        <li>Understanding the principles and functionalities of database management systems</li>
+        <li>Practicing database design, implementation, and querying techniques</li>
+        <li>Exploring advanced topics such as transaction management, concurrency control, and security in databases</li>
+    </ol>
+</p>
+</body>
+</html>

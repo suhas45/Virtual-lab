@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Virtual Lab</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body class="main-body">
+
+    <header>
+        <!-- Guru Nanak Logo -->
+        <img src="https://static.toiimg.com/thumb/msid-64358656,imgsize-52119,width-400,resizemode-4/64358656.jpg" alt="Guru Nanak Logo" class="logo">
+        <!-- Heading -->
+        <h1 class="header-title">Data Base Management System Virtual Lab!</h1>
+    </header>
+    <p>
+        <h1>Welcome to DBMS Virtual Lab.</h1>
+    </p>
+
+    <nav>
+        <ul class="horizontal-list">
+            <li><b><a href="{% url 'aim' %}" class="section-link">AIM</b></a></li>
+            <li><b><a href="{% url 'theory' %}" class="section-link">THEORY</b></a></li>
+            <li><b><a href="{% url 'ex' %}" class="section-link">QUIZ</b></a></li>
+            <li><b><a href="{% url 'ersimulation' %}" class="section-link">SIMULATION</b></a></li>
+            <li><b><a href="{% url  'feedback' %}" class="section-link">FEEDBACK</b></a></li>
+            <li><b><a href="{% url 'eref' %}" class="section-link">REFERENCES</b></a></li>
+        </ul>
+    </nav>
+
+    
+    
+    <p>ER DIAGRAM Overview:</p>
+    <p>The Entity Relational Model is a model for identifying entities to be represented in the database and representation of how those entities are related. The ER data model specifies enterprise schema that represents the overall logical structure of a database graphically.</p>
+
+    <p>The Entity Relationship Diagram explains the relationship among the entities present in the database. ER models are used to model real-world objects like a person, a car, or a company and the relation between these real-world objects. In short, the ER Diagram is the structural format of the database.</p>
+
+    <p><strong>Why Use ER Diagrams In DBMS?</strong></p>
+    <ul>
+        <li>ER diagrams are used to represent the E-R model in a database, which makes them easy to convert into relations (tables).</li>
+        <li>ER diagrams provide the purpose of real-world modeling of objects which makes them intently useful.</li>
+        <li>ER diagrams require no technical knowledge and no hardware support.</li>
+        <li>These diagrams are very easy to understand and easy to create even for a naive user.</li>
+        <li>It gives a standard solution for visualizing the data logically.</li>
+    </ul>
+
+    <p><strong>Symbols Used in ER Model:</strong></p>
+    <ul>
+        <li>Rectangles: Rectangles represent Entities in the ER Model.</li>
+        <li>Ellipses: Ellipses represent Attributes in the ER Model.</li>
+        <li>Diamond: Diamonds represent Relationships among Entities.</li>
+        <li>Lines: Lines represent attributes to entities and entity sets with other relationship types.</li>
+        <li>Double Ellipse: Double Ellipses represent Multi-Valued Attributes.</li>
+        <li>Double Rectangle: Double Rectangle represents a Weak Entity.</li>
+    </ul>
+</body>
+</html>

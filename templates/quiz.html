@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Diagram Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+        #quiz {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #quiz div {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .score {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>ER Diagram Quiz</h1>
+
+    <div id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Quiz</button>
+
+    <script>
+        const questions = [
+            {
+                question: "What does ER stand for in ER diagrams?",
+                options: ["Entity Relationship", "Extended Relationship", "Entity Reporting", "Entity Representing"],
+                answer: "Entity Relationship"
+            },
+            {
+                question: "Which symbol represents an entity in an ER diagram?",
+                options: ["Square", "Circle", "Triangle", "Rectangle"],
+                answer: "Rectangle"
+            },
+            {
+                question: "Which symbol represents a relationship in an ER diagram?",
+                options: ["Square", "Circle", "Triangle", "Diamond"],
+                answer: "Diamond"
+            },
+            {
+                question: "What does the term 'Cardinality' refer to in ER diagrams?",
+                options: ["Number of attributes in an entity", "Number of entities in a relationship", "Number of instances of an entity", "Number of entities in a database"],
+                answer: "Number of instances of an entity"
+            },
+            {
+                question: "In an ER diagram, what does a double line between entities indicate?",
+                options: ["Many-to-Many relationship", "One-to-One relationship", "Many-to-One relationship", "One-to-Many relationship"],
+                answer: "Many-to-Many relationship"
+            },
+            {
+                question: "In an ER diagram, what does a single line with an arrow indicate?",
+                options: ["One-to-Many relationship", "Many-to-One relationship", "One-to-One relationship", "Many-to-Many relationship"],
+                answer: "Many-to-One relationship"
+            },
+            {
+                question: "What does the term 'Attribute' refer to in ER diagrams?",
+                options: ["Relationship between entities", "Properties of an entity", "Instances of an entity", "Connections between entities"],
+                answer: "Properties of an entity"
+            },
+            {
+                question: "In an ER diagram, what does a double ellipse represent?",
+                options: ["Weak entity", "Strong entity", "Attribute", "Relationship"],
+                answer: "Weak entity"
+            },
+            {
+                question: "What does the term 'Normalization' refer to in ER diagrams?",
+                options: ["The process of reducing redundancy", "The process of increasing redundancy", "The process of adding attributes", "The process of deleting attributes"],
+                answer: "The process of reducing redundancy"
+            },
+            {
+                question: "What is a primary key in the context of ER diagrams?",
+                options: ["A unique identifier for an entity", "A relationship between entities", "A foreign key in a relationship", "An attribute in a weak entity"],
+                answer: "A unique identifier for an entity"
+            }
+        ];
+
+        const quizContainer = document.getElementById("quiz");
+
+        function loadQuiz() {
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${question.question}</h3>`;
+                question.options.forEach((option, optionIndex) => {
+                    questionDiv.innerHTML += `<label><input type="radio" name="question${index}" value="${optionIndex}"> ${option}</label>`;
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value == questions[index].options.indexOf(questions[index].answer)) {
+                        score++;
+                    }
+                }
+            });
+            const totalQuestions = questions.length;
+            const scorePercentage = (score / totalQuestions) * 100;
+            alert(`Your score: ${score}/${totalQuestions} (${scorePercentage.toFixed(2)}%)`);
+        }
+
+        loadQuiz();
+    </script>
+</body>
+</html>
+

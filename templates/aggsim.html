@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Aggregate Functions Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        #game {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        #table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #table th, #table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #table th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <h2>SQL Aggregate Functions Game</h2>
+        <p>Write SQL queries to perform the following tasks:</p>
+        <ol>
+            <li>Count the number of students.</li>
+            <li>Calculate the average age of students.</li>
+            <li>Find the highest score among students.</li>
+            <li>Find the lowest score among students.</li>
+        </ol>
+        <p>Here is the sample table 'students' for reference:</p>
+        <table id="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>25</td>
+                    <td>85</td>
+                </tr>
+                <tr>
+                    <td>Amy</td>
+                    <td>22</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>Michael</td>
+                    <td>28</td>
+                    <td>75</td>
+                </tr>
+                <tr>
+                    <td>Sarah</td>
+                    <td>24</td>
+                    <td>88</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Enter your SQL query here:</p>
+        <textarea id="queryInput" rows="5" cols="50" placeholder="Enter your SQL query here..."></textarea><br>
+        <button onclick="submitQuery()">Submit</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function submitQuery() {
+            const userInput = document.getElementById("queryInput").value.trim().toUpperCase();
+            let result = "";
+
+            switch(userInput) {
+                case "SELECT COUNT(*) AS TOTAL_STUDENTS FROM STUDENTS":
+                    result = "Total number of students: 4";
+                    break;
+                case "SELECT AVG(AGE) AS AVERAGE_AGE FROM STUDENTS":
+                    result = "Average age of students: 24.75";
+                    break;
+                case "SELECT MAX(SCORE) AS HIGHEST_SCORE FROM STUDENTS":
+                    result = "Highest score among students: 90";
+                    break;
+                case "SELECT MIN(SCORE) AS LOWEST_SCORE FROM STUDENTS":
+                    result = "Lowest score among students: 75";
+                    break;
+                default:
+                    result = "Incorrect query. Try again!";
+            }
+
+            document.getElementById("result").textContent = result;
+        }
+    </script>
+</body>
+</html>

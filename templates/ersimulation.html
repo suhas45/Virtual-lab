@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Diagram Practice</title>
+    <style>
+        .container {
+            max-width: 400px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .canvas {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ER Diagram Practice</h1>
+        <div class="canvas" id="canvas"></div>
+        <button onclick="addEntity()">Add Entity</button>
+        <button onclick="addRelationship()">Add Relationship</button>
+        <button onclick="clearCanvas()">Clear Canvas</button>
+        <textarea id="code" placeholder="ER Diagram Code"></textarea>
+        <button onclick="generateDiagram()">Generate Diagram</button>
+    </div>
+    <script>
+        let entities = [];
+        let relationships = [];
+
+        function addEntity() {
+            const entityName = prompt("Enter entity name:");
+            entities.push(entityName);
+            renderCanvas();
+        }
+
+        function addRelationship() {
+            const entity1 = prompt("Enter first entity name:");
+            const entity2 = prompt("Enter second entity name:");
+            relationships.push({ entity1, entity2 });
+            renderCanvas();
+        }
+
+        function clearCanvas() {
+            entities = [];
+            relationships = [];
+            renderCanvas();
+        }
+
+        function renderCanvas() {
+            const canvas = document.getElementById("canvas");
+            canvas.innerHTML = "";
+            entities.forEach(entity => {
+                const entityDiv = document.createElement("div");
+                entityDiv.textContent = entity;
+                canvas.appendChild(entityDiv);
+            });
+            relationships.forEach(relationship => {
+                const relationshipDiv = document.createElement("div");
+                relationshipDiv.textContent = `${relationship.entity1} -> ${relationship.entity2}`;
+                canvas.appendChild(relationshipDiv);
+            });
+        }
+
+        function generateDiagram() {
+            let code = "";
+            entities.forEach(entity => {
+                code += `+---------------------+\n`;
+                code += `|      ${entity}       |\n`;
+                code += `+---------------------+\n`;
+            });
+            relationships.forEach(relationship => {
+                code += `| ${relationship.entity1} -> ${relationship.entity2} |\n`;
+            });
+            document.getElementById("code").value = code;
+        }
+    </script>
+</body>
+</html>

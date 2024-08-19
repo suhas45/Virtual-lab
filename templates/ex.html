@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Quiz</title>
+    <style>
+        /* CSS styles remain the same */
+    </style>
+</head>
+<body>
+    <h1>SQL Quiz</h1>
+
+    <div id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Quiz</button>
+
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <span id="close-popup" onclick="closePopup()">X</span>
+            <div id="quiz-result"></div>
+            <button id="next-level-btn" onclick="nextLevel()">Next Level</button>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        const levels = [
+            {
+                level: 1,
+                passPercentage: 80,
+                unlocked: true,
+                questions: [
+                    {
+                        question: "What does the INSERT command do in SQL?",
+                        options: ["Inserts new data into a table", "Updates existing data in a table", "Deletes data from a table", "Creates a new table"],
+                        answer: "Inserts new data into a table"
+                    },
+                    {
+                        question: "What does the UPDATE command do in SQL?",
+                        options: ["Inserts new data into a table", "Deletes data from a table", "Updates existing data in a table", "Creates a new table"],
+                        answer: "Updates existing data in a table"
+                    },
+                    {
+                        question: "What does the DELETE command do in SQL?",
+                        options: ["Inserts new data into a table", "Deletes data from a table", "Updates existing data in a table", "Creates a new table"],
+                        answer: "Deletes data from a table"
+                    },
+                    {
+                        question: "Which command is used to retrieve data from a database in SQL?",
+                        options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
+                        answer: "SELECT"
+                    },
+                    {
+                        question: "What is the purpose of the WHERE clause in SQL commands?",
+                        options: ["To specify the data to be inserted", "To specify the data to be updated", "To specify the data to be deleted", "To filter data based on a condition"],
+                        answer: "To filter data based on a condition"
+                    }
+                ]
+            },
+            {
+                level: 2,
+                passPercentage: 80,
+                unlocked: false,
+                questions: [
+                    {
+                        question: "What is the difference between INNER JOIN and LEFT JOIN in SQL?",
+                        options: ["INNER JOIN returns only matching rows from both tables, while LEFT JOIN returns all rows from the left table and matching rows from the right table", "INNER JOIN returns all rows from both tables, while LEFT JOIN returns only matching rows from the left table", "INNER JOIN returns only matching rows from the left table and all rows from the right table, while LEFT JOIN returns all rows from both tables", "There is no difference between INNER JOIN and LEFT JOIN"],
+                        answer: "INNER JOIN returns only matching rows from both tables, while LEFT JOIN returns all rows from the left table and matching rows from the right table"
+                    },
+                    {
+                        question: "What is a subquery in SQL?",
+                        options: ["A query that joins two or more tables", "A query that returns a subset of columns from a table", "A query nested within another query", "A query that filters rows based on a condition"],
+                        answer: "A query nested within another query"
+                    },
+                    {
+                        question: "What does the ORDER BY clause do in SQL?",
+                        options: ["Filters rows based on a condition", "Groups rows that have the same values into summary rows", "Sorts the result set in ascending or descending order", "Specifies the columns to retrieve from a table"],
+                        answer: "Sorts the result set in ascending or descending order"
+                    }
+                ]
+            },
+            {
+                level: 3,
+                passPercentage: 80,
+                unlocked: false,
+                questions: [
+                    {
+                        question: "What is a stored procedure in SQL?",
+                        options: ["A sequence of SQL statements stored in the database", "A query that joins two or more tables", "A query that returns a subset of columns from a table", "A query nested within another query"],
+                        answer: "A sequence of SQL statements stored in the database"
+                    },
+                    {
+                        question: "What is a trigger in SQL?",
+                        options: ["A stored procedure that automatically executes when certain events occur in the database", "A query that joins two or more tables", "A query that returns a subset of columns from a table", "A query nested within another query"],
+                        answer: "A stored procedure that automatically executes when certain events occur in the database"
+                    },
+                    {
+                        question: "What does the UNION operator do in SQL?",
+                        options: ["Combines the results of two or more SELECT statements", "Filters rows based on a condition", "Joins two or more tables based on a related column between them", "Groups rows that have the same values into summary rows"],
+                        answer: "Combines the results of two or more SELECT statements"
+                    }
+                ]
+            }
+        ];
+
+        let currentLevel = 1;
+        let currentLevelObj = levels.find(l => l.level === currentLevel);
+
+        const quizContainer = document.getElementById("quiz");
+
+        function loadQuiz(levelObj) {
+            quizContainer.innerHTML = "";
+            levelObj.questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${question.question}</h3>`;
+                question.options.forEach((option, optionIndex) => {
+                    questionDiv.innerHTML += `<label><input type="radio" name="question${index}" value="${optionIndex}"> ${option}</label>`;
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            currentLevelObj.questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value == currentLevelObj.questions[index].options.indexOf(currentLevelObj.questions[index].answer)) {
+                        score++;
+                    }
+                }
+            });
+            const totalQuestions = currentLevelObj.questions.length;
+            const scorePercentage = (score / totalQuestions) * 100;
+            const resultText = `Your score: ${score}/${totalQuestions} (${scorePercentage.toFixed(2)}%)`;
+
+            // Display the score on the page
+            const quizResultDiv = document.getElementById("quiz-result");
+            quizResultDiv.textContent = resultText;
+
+            // Show the popup if the score is above the pass percentage
+            if (scorePercentage >= currentLevelObj.passPercentage && currentLevel < levels.length) {
+                const popupOverlay = document.getElementById("popup-overlay");
+                popupOverlay.style.display = "block";
+                confetti.start();
+            }
+
+            // Unlock the next level if the score is above the pass percentage
+            if (scorePercentage >= currentLevelObj.passPercentage && currentLevel < levels.length) {
+                levels[currentLevel].unlocked = true;
+            }
+        }
+
+        function closePopup() {
+            // Hide the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "none";
+
+            // Stop confetti animation
+            confetti.stop();
+        }
+
+        function nextLevel() {
+            // Move to the next level if it's unlocked
+            if (currentLevel < levels.length) {
+                currentLevel++;
+                currentLevelObj = levels.find(l => l.level === currentLevel);
+                loadQuiz(currentLevelObj);
+            }
+
+            // Hide the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "none";
+
+            // Stop confetti animation
+            confetti.stop();
+        }
+
+        loadQuiz(currentLevelObj);
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script> <!-- Link to confetti JavaScript file -->
+</body>
+</html>

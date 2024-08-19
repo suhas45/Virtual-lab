@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Query Challenge</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>SQL Query Challenge</h1>
+</header>
+
+<main>
+    <section id="challenge">
+        <h2>Challenge Mode</h2>
+        <div id="scenario">
+            <!-- Challenge scenario text dynamically populated here -->
+        </div>
+        <textarea id="queryInput" placeholder="Enter your SQL query here"></textarea>
+        <button onclick="submitQuery()">Submit Query</button>
+        <p id="result"></p>
+    </section>
+
+    <section id="leaderboard">
+        <h2>Leaderboard</h2>
+        <ol id="scores">
+            <!-- Leaderboard scores dynamically populated here -->
+        </ol>
+    </section>
+</main>
+
+<script>
+    // Function to submit user query
+    function submitQuery() {
+        const userInput = document.getElementById("queryInput").value;
+        // Send user query to backend for validation and scoring
+        // Update result display based on response
+        document.getElementById("result").textContent = "Query submitted: " + userInput;
+    }
+
+    // Function to fetch and display leaderboard scores
+    function fetchLeaderboard() {
+        // Fetch leaderboard scores from backend
+        // Populate the #scores list with fetched scores
+    }
+
+    // Initial setup
+    fetchLeaderboard(); // Fetch leaderboard on page load
+</script>
+
+</body>
+</html>

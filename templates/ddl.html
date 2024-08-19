@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS Virtual Lab</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body class="main-body">
+
+<header>
+    <!-- Guru Nanak Logo -->
+    <img src="https://static.toiimg.com/thumb/msid-64358656,imgsize-52119,width-400,resizemode-4/64358656.jpg" alt="Guru Nanak Logo" class="logo">
+    <!-- Heading -->
+    <h1 class="header-title">Data Base Management System Virtual Lab!</h1>
+</header>
+
+<p>
+    <h1>Welcome to DBMS Virtual Lab.</h1>
+</p>
+
+<nav>
+    <ul class="horizontal-list">
+        <li><b><a href="{% url 'ddlaim' %}" class="section-link">AIM</b></a></li>
+        <li><b><a href="{% url 'ddltheory' %}" class="section-link">THEORY</b></a></li>
+        <li><b><a href="{% url 'ddlquiz' %}" class="section-link">QUIZ</b></a></li>
+        <li><b><a href="{% url 'game' %}" class="section-link">SIMULATION</b></a></li>
+        <li><b><a href="{% url 'feedback' %}" class="section-link">FEEDBACK</b></a></li>
+        <li><b><a href="{% url 'ddlref' %}" class="section-link">REFERENCES</b></a></li>
+    </ul>
+</nav>
+
+<section>
+    <p>
+        This experiment focuses on Data Definition Language (DDL) commands in SQL. DDL commands allow us to define, modify, and manage the structure of the database. They include:
+    </p>
+    <ul>
+        <li>CREATE Command: Used to create new database objects such as tables, views, indexes, etc.</li>
+        <li>ALTER Command: Used to modify the structure of existing database objects.</li>
+        <li>DROP Command: Used to delete database objects.</li>
+        <li>TRUNCATE Command: Used to remove all records from a table, but not its structure.</li>
+    </ul>
+    <p>Students will learn how to use these commands to define and manage the structure of a SQL database.</p>
+</section>
+
+</body>
+</html>

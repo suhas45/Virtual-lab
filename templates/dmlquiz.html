@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DML COMMANDS Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+        }
+        #quiz {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #quiz div {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+            z-index: 9999;
+        }
+        #popup-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #007bff; /* Popup box background color */
+            padding: 40px;
+            border-radius: 50px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+        }
+        #close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: white;
+        }
+        canvas#confetti-canvas {
+            display: block;
+            z-index: 9999;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <h1>DML COMMAND Quiz</h1>
+
+    <div id="quiz"></div>
+
+    <button onclick="submitQuiz()">Submit Quiz</button>
+
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <span id="close-popup" onclick="closePopup()">X</span>
+            <div id="quiz-result"></div>
+        </div>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script>
+        const questions = [
+            {
+                question: "What does the INSERT command do in SQL?",
+                options: ["Inserts new data into a table", "Updates existing data in a table", "Deletes data from a table", "Creates a new table"],
+                answer: "Inserts new data into a table"
+            },
+            {
+                question: "What does the UPDATE command do in SQL?",
+                options: ["Inserts new data into a table", "Deletes data from a table", "Updates existing data in a table", "Creates a new table"],
+                answer: "Updates existing data in a table"
+            },
+            {
+                question: "What does the DELETE command do in SQL?",
+                options: ["Inserts new data into a table", "Deletes data from a table", "Updates existing data in a table", "Creates a new table"],
+                answer: "Deletes data from a table"
+            },
+            {
+                question: "Which command is used to retrieve data from a database in SQL?",
+                options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
+                answer: "SELECT"
+            },
+            {
+                question: "What is the purpose of the WHERE clause in SQL commands?",
+                options: ["To specify the data to be inserted", "To specify the data to be updated", "To specify the data to be deleted", "To filter data based on a condition"],
+                answer: "To filter data based on a condition"
+            },
+            {
+                question: "Which command is used to add a new row to a table in SQL?",
+                options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
+                answer: "INSERT"
+            },
+            {
+                question: "Which command is used to modify existing data in a table in SQL?",
+                options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
+                answer: "UPDATE"
+            },
+            {
+                question: "Which command is used to remove one or more rows from a table in SQL?",
+                options: ["SELECT", "INSERT", "UPDATE", "DELETE"],
+                answer: "DELETE"
+            },
+            {
+                question: "What does DML stand for in SQL?",
+                options: ["Data Manipulation Language", "Database Management Language", "Data Modeling Language", "Database Markup Language"],
+                answer: "Data Manipulation Language"
+            },
+            {
+                question: "Which of the following is not a DML command in SQL?",
+                options: ["SELECT", "INSERT", "UPDATE", "CREATE"],
+                answer: "CREATE"
+            }
+        ];
+        const quizContainer = document.getElementById("quiz");
+
+        function loadQuiz() {
+            questions.forEach((question, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.innerHTML = `<h3>${index + 1}. ${question.question}</h3>`;
+                question.options.forEach((option, optionIndex) => {
+                    questionDiv.innerHTML += `<label><input type="radio" name="question${index}" value="${optionIndex}"> ${option}</label>`;
+                });
+                quizContainer.appendChild(questionDiv);
+            });
+        }
+
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((question, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value == questions[index].options.indexOf(questions[index].answer)) {
+                        score++;
+                    }
+                }
+            });
+            const totalQuestions = questions.length;
+            const scorePercentage = (score / totalQuestions) * 100;
+            const resultText = `Your score: ${score}/${totalQuestions} (${scorePercentage.toFixed(2)}%)`;
+
+            // Display the score on the page
+            const quizResultDiv = document.getElementById("quiz-result");
+            quizResultDiv.textContent = resultText;
+
+            // Show the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "block";
+
+            // Start confetti animation
+            confetti.start();
+        }
+
+        function closePopup() {
+            // Hide the popup
+            const popupOverlay = document.getElementById("popup-overlay");
+            popupOverlay.style.display = "none";
+
+            // Stop confetti animation
+            confetti.stop();
+        }
+
+        loadQuiz();
+    </script>
+    <script src="script.js"></script> <!-- Link to confetti JavaScript file -->
+</body>
+</html>
+
