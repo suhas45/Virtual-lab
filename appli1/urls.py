@@ -42,6 +42,7 @@ from .views import querygameview
 from .views import queryrefview
 from .views import querytheoryview
 from .views import theoryview
+from .views import submit_quiz
 
 
 urlpatterns = [
@@ -85,7 +86,8 @@ urlpatterns = [
     path('queryquiz/',queryquizview,name='queryquiz'),
     path('querygame/', querygameview,name='querygame'),
     path('queryref/', queryrefview,name='queryref'),
-    path('querytheory/',querytheoryview,name='querytheory')
+    path('querytheory/',querytheoryview,name='querytheory'),
+    path('submit-quiz/', submit_quiz, name='submit_quiz'),
 ]
 
 

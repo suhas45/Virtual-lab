@@ -85,6 +85,25 @@ def querytheoryview(request):
 def quizview(request):
     return render(request,'quiz.html')
 
+# views.py
+from django.shortcuts import render
+from django.http import JsonResponse
+from .models import QuizScore
+
+def submit_quiz(request):
+    if request.method == 'POST':
+        username = request.POST.get('username', 'Anonymous')
+        score = int(request.POST.get('score', 0))
+        total_questions = int(request.POST.get('total_questions', 10))
+        percentage = float(request.POST.get('percentage', 0.0))
+        
+        # Save the score to the database
+        quiz_score = QuizScore(username=username, score=score, total_questions=total_questions, percentage=percentage)
+        quiz_score.save()
+        
+        return JsonResponse({'message': 'Score saved successfully!'})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
 
 
 

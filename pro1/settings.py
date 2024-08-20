@@ -80,6 +80,20 @@ DATABASES = {
     }
 }
 
+# settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # Or 'django.db.backends.postgresql', 'django.db.backends.sqlite3', etc.
+        'NAME': 'virtual_lab',
+        'USER': 'root',
+        'PASSWORD': 'suhas45',
+        'HOST': 'localhost',  # Or your database server IP
+        'PORT': '3306',  # Default port for MySQL
+    }
+}
+
+
 
 
 
